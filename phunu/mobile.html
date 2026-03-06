@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/png" href="image/favicon.ico">
+    <title>Quốc tế phụ nữ</title>    
+    <link type="text/css" rel="stylesheet" href="./renxi/default.css">
+    
+    <style>
+        /* CSS bổ sung để tối ưu mobile */
+        body { margin: 0; padding: 0; overflow-x: hidden; }
+        #main { width: 100%; position: relative; }
+        #wrap { position: relative; width: 100% !important; margin: 0 auto; height: auto !important; }
+        
+        /* Chỉnh lại phần văn bản cho mobile */
+        #text {
+            position: relative !important;
+            width: 90% !important;
+            margin: 20px auto !important;
+            left: 0 !important;
+            top: 0 !important;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            z-index: 100;
+            font-size: 16px !important; /* Tăng cỡ chữ cho dễ đọc */
+        }
+        #code { display: none; width: 100% !important; margin: 0 !important; }
+        
+        /* Canvas sẽ chiếm toàn bộ nền */
+        #canvas {
+            display: block;
+            margin: 0 auto;
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        /* Ẩn lỗi trên mobile */
+        #error { display: none; text-align: center; padding: 20px; color: red; }
+
+        .say { line-height: 1.6em !important; display: block; margin-bottom: 5px; }
+        img[src*="tym.png"] { width: 30px; vertical-align: middle; }
+    </style>
+
+    <script type="text/javascript" src="./renxi/jquery.min.js"></script>
+    <script type="text/javascript" src="./renxi/jscex.min.js"></script>
+    <script type="text/javascript" src="./renxi/jscex-parser.js"></script>
+    <script type="text/javascript" src="./renxi/jscex-jit.js"></script>
+    <script type="text/javascript" src="./renxi/jscex-builderbase.min.js"></script>
+    <script type="text/javascript" src="./renxi/jscex-async.min.js"></script>
+    <script type="text/javascript" src="./renxi/jscex-async-powerpack.min.js"></script>
+    <script type="text/javascript" src="./renxi/functions.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./renxi/love.js" charset="utf-8"></script>
+</head>
+<body>
+    <audio autoplay="autoplay" loop="loop">
+        <source src="music/nhac.mp3" type="audio/mp3" />
+    </audio> 
+
+    <div id="main">
+        <div id="error">Trình duyệt không hỗ trợ. Vui lòng dùng Chrome hoặc Safari.</div>
+        <div id="wrap">
+            <div id="text" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                <div id="code">
+                    <font color="#0000FF">
+                        <span class="say">Chúc mừng 8/3 đến với bông hoa rực rỡ nhất trong nhàa!!</span><br>
+                        <span class="say">Bông hoa này đã phải gác lại những giấc mơ của mình để nuôi những giấc mơ của chúng con.</span><br>
+                        <span class="say">Nhân ngày 8/3 này, bố và 2 con chúc cho mẹ luôn thật xinh đẹp tuyệt vời.</span><br>
+                        <span class="say">Chúc mẹ hãy luôn tươi cười hạnh phúc bên cạnh bố và 2 con mẹ nhéeee.</span><br>
+                        <span class="say">
+                            <img src="image/tym.png" alt="">
+                        </span><br>
+                        <span class="say" style="text-align: right;">--Đức Vua và 2 chàng lính ngự lâm gửi Hoàng Hậu--</span>
+                    </font>
+                </div>
+            </div>
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+
+    <script>
+    (function(){
+        var canvas = $('#canvas');
+        if (!canvas[0].getContext) {
+            $("#error").show();
+            return false;
+        }
+
+        // Tự động lấy kích thước màn hình điện thoại
+        var width = $(window).width();
+        var height = $(window).height();
+        
+        canvas.attr("width", width);
+        canvas.attr("height", height);
+
+        var opts = {
+            seed: {
+                x: width / 2 - 20,
+                color: "rgb(190, 26, 37)",
+                scale: 2
+            },
+            branch: [
+                [width/2, height, width/2, height*0.4, width/2, height*0.3, 30, 100, [
+                    [width/2+5, height*0.7, width/2-80, height*0.6, width/2-100, height*0.6, 13, 100, [
+                        [width/2-85, height*0.65, width/2-100, height*0.62, width/2-110, height*0.6, 2, 40]
+                    ]],
+                    [width/2+15, height*0.65, width/2+70, height*0.5, width/2+100, height*0.5, 12, 100, [
+                        [width/2+40, height*0.55, width/2+80, height*0.58, width/2+90, height*0.6, 3, 80]
+                    ]],
+                    [width/2+4, height*0.4, width/2+2, height*0.35, width/2, height*0.3, 3, 40],
+                    [width/2+10, height*0.55, width/2-120, height*0.35, width/2-150, height*0.35, 9, 80, [
+                        [width/2-110, height*0.4, width/2-130, height*0.35, width/2-140, height*0.3, 2, 40]
+                    ]],
+                    [width/2+10, height*0.5, width/2+70, height*0.35, width/2+140, height*0.3, 6, 100]
+                ]] 
+            ],
+            bloom: {
+                num: 500,
+                width: width,
+                height: height,
+            },
+            footer: {
+                width: width,
+                height: 5,
+                speed: 10,
+            }
+        }
+
+        var tree = new Tree(canvas[0], width, height, opts);
+        var seed = tree.seed;
+        var foot = tree.footer;
+        var hold = 1;
+
+        canvas.click(function(e) {
+            var offset = canvas.offset(), x, y;
+            x = e.pageX - offset.left;
+            y = e.pageY - offset.top;
+            if (seed.hover(x, y)) {
+                hold = 0; 
+                canvas.unbind("click");
+                canvas.unbind("mousemove");
+                canvas.removeClass('hand');
+            }
+        }).mousemove(function(e){
+            var offset = canvas.offset(), x, y;
+            x = e.pageX - offset.left;
+            y = e.pageY - offset.top;
+            canvas.toggleClass('hand', seed.hover(x, y));
+        });
+
+        var seedAnimate = eval(Jscex.compile("async", function () {
+            seed.draw();
+            while (hold) {
+                $await(Jscex.Async.sleep(10));
+            }
+            while (seed.canScale()) {
+                seed.scale(0.95);
+                $await(Jscex.Async.sleep(10));
+            }
+            while (seed.canMove()) {
+                seed.move(0, 2);
+                foot.draw();
+                $await(Jscex.Async.sleep(10));
+            }
+        }));
+
+        var growAnimate = eval(Jscex.compile("async", function () {
+            do {
+                tree.grow();
+                $await(Jscex.Async.sleep(10));
+            } while (tree.canGrow());
+        }));
+
+        var flowAnimate = eval(Jscex.compile("async", function () {
+            do {
+                tree.flower(2);
+                $await(Jscex.Async.sleep(10));
+            } while (tree.canFlower());
+        }));
+
+        var moveAnimate = eval(Jscex.compile("async", function () {
+            tree.snapshot("p1", 240, 0, 610, height);
+            while (tree.move("p1", 500, 0)) {
+                foot.draw();
+                $await(Jscex.Async.sleep(10));
+            }
+            foot.draw();
+            tree.snapshot("p2", 500, 0, 610, height);
+
+            canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+            $await(Jscex.Async.sleep(300));
+            canvas.css("background", "none");
+        }));
+
+        var jumpAnimate = eval(Jscex.compile("async", function () {
+            while (true) {
+                tree.ctx.clearRect(0, 0, width, height);
+                tree.jump();
+                foot.draw();
+                $await(Jscex.Async.sleep(25));
+            }
+        }));
+
+        var textAnimate = eval(Jscex.compile("async", function () {
+            $("#code").show().typewriter();
+        }));
+
+        var runAsync = eval(Jscex.compile("async", function () {
+            $await(seedAnimate());
+            $await(growAnimate());
+            $await(flowAnimate());
+            // Bỏ moveAnimate trên mobile để tránh lệch hình
+            textAnimate().start();
+            $await(jumpAnimate());
+        }));
+
+        runAsync().start();
+    })();
+    </script>
+</body>
+</html>
